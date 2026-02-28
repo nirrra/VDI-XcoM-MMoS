@@ -1,0 +1,11 @@
+# Default ignored files
+
+*.csv
+*.avi
+*.mot
+*.trc
+*.mat
+*.png
+*.eps
+*.mp4
+/data/*
