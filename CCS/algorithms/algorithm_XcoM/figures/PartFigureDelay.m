@@ -1,0 +1,14 @@
+figure; 
+set(gcf, 'position', [100, 100, 1280, 720], 'color', 'w');
+subplot(2,1,1); hold on; grid on;
+plot(times.plantar,DivMean(sum(sum(pressurePlantar2D,2),3))./1e5,'LineWidth',2,'Color',colors(1,:));
+plot(times.kinect,DivMean(stream.PELVIS.z),'LineWidth',2,'Color',colors(3,:));
+plot(times.kinect,DivMean(posCOMSegments.Trunk.y),'LineWidth',2,'Color',colors(4,:));
+hold off; legend('足底压力','骨盆高度','COM'); title('校准前');
+subplot(2,1,2); hold on; grid on;
+plot(times.plantar+delay_time,DivMean(sum(sum(pressurePlantar2D,2),3))./1e5,'LineWidth',2,'Color',colors(1,:));
+plot(times.kinect,DivMean(stream.PELVIS.z),'LineWidth',2,'Color',colors(3,:));
+plot(times.kinect,DivMean(posCOMSegments.Trunk.y),'LineWidth',2,'Color',colors(4,:));
+hold off; legend('足底压力','骨盆高度','COM'); title(['校准后 ',num2str(delay_time),'s']);
+set(gcf,'position',[100,100,1280,720]);
+title('fig.2 时间统一验证');

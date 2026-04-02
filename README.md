@@ -1,82 +1,131 @@
-## VDI-XcoM & MMoS Validation (Data + Code)
+## VDI-XcoM & MMoS Validation (GVS + CCS)
 
-This repository provides the **data and MATLAB code** used to validate the **VDI-XcoM** and **MMoS** metrics proposed in our work.
+This repository provides the **MATLAB code and experiment data** used to support the manuscript **`manuscript.md`**.
+
+The project is organized by the two studies described in the manuscript:
+- **`GVS/`**: Gold-standard validation study.
+- **`CCS/`**: Clinical comparison study.
 
 ### What’s included
-- **Validation scripts** for single-trial testing and full-dataset statistical analysis.
-- **Preprocessing / segmentation / computation pipelines** for CoM, XcoM variants, BoS, MoS/MMoS.
-- A fixed **expected dataset directory layout** so the scripts can run without manual path edits.
+- **Experiment-specific code** for the `GVS` and `CCS` analyses.
+- **Bundled experiment data folders** arranged under each study directory.
+- **Figure / table output locations** matching the current project structure.
+- A repository layout that follows the two-stage study design used in the manuscript.
 
 ---
 
 ## Repository layout (key files)
-- **`codes/com_cmp_single.m`**: Run and visualize **one trial** (quick sanity check).
-- **`codes/com_cmp_all.m`**: Run **full-dataset** analysis and statistical summaries.
-- **`data/dataSTS2/`**: Dataset root folder expected by the loader.
+- **`GVS/codes/com_cmp_single.m`**: Single-trial visualization / sanity-check script for the gold-standard validation study.
+- **`GVS/codes/com_cmp_all.m`**: Full GVS analysis script for aggregated results.
+- **`GVS/data/dataSTS2/`**: Main bundled dataset folder used by the GVS workflow.
+- **`CCS/CompareControlPatient_VDI_XcoM.m`**: Main script for the clinical comparison study.
+- **`CCS/data/`**: Patient-group data and processed segment cache for CCS.
+- **`CCS/data_control/`**: Control-group data and processed segment cache for CCS.
+- **`CCS/predicted_tangential_mat/`**: Predicted tangential-force files used by the CCS pipeline.
 
 ---
 
-## Data download & setup
-### Download
-The raw dataset can be downloaded from:
-- **Dataset URL**: `https://share.weiyun.com/Z0uyv8hG`
+## Data download
+If you need to re-download the experiment data, use the following links:
 
-### Unzip location (required)
-After extracting the downloaded zip file, please make sure the extracted files match the following structure **relative to the repository root**:
+- **CCS data**: `https://share.weiyun.com/EFtY8Crr`
+- **GVS data**: `https://share.weiyun.com/wTSKfAVp`
+
+After download, please place the files back into the folder structure shown below.
+
+---
+
+## Data layout and setup
+The repository is already arranged according to the current manuscript workflow. Please keep the folder structure unchanged.
 
 ```text
 VDI-XcoM-MMoS/
-  codes/
-    com_cmp_single.m
-    com_cmp_all.m
-    ...
-  data/
-    dataSTS2/
-      floorFileSTS2.txt
-      KinectMat/
-        *.mat
-      GRF2Mat/
-        *.mat
-      (other files/folders are allowed)
+  README.md
+  GVS/
+    codes/
+      com_cmp_single.m
+      com_cmp_all.m
+      algorithms/
+      ...
+    data/
+      dataSTS2/
+        floorFileSTS2.txt
+        KinectMat/
+        GRF2Mat/
+        Analysis2Mat/
+        Analysis4Mat/
+        ...
+  CCS/
+    CompareControlPatient_VDI_XcoM.m
+    algorithms/
+    data/
+      floorFile/
+      footscan/
+      kinect/
+      sts_segs_patient.mat
+    data_control/
+      floorFile/
+      footscan/
+      kinect/
+      sts_segs_control.mat
+    predicted_tangential_mat/
+      patient/
+      control/
+    outputs/
+      experiment_b_lite/
+        figures/
+        tables/
 ```
 
 Notes:
-- The data loader is implemented in `codes/algorithms/algorithms_preprocessing/ReadAndSortDataKinect2.m`.
-- By default it looks for `../data/dataSTS2/` (relative to `codes/`), so the **recommended working directory is `codes/`** when running scripts.
+- `GVS` corresponds to the **gold-standard validation study**.
+- `CCS` corresponds to the **clinical comparison study**.
 
 ---
 
 ## Requirements
-- **MATLAB** (tested with typical Signal Processing / Image Processing functionality used by the scripts).
-- The repository uses relative paths and does not require extra installation beyond the dataset.
+- **MATLAB**
+- Standard MATLAB functionality required by the provided scripts for signal processing, visualization, tables, and statistics
+- No separate installation step is required if the repository structure is kept as-is
 
 ---
 
 ## Running the code
-### 1) Single trial test
-Open MATLAB, set the current folder to `codes/`, then run:
-- `com_cmp_single.m`
+### 1) GVS: single-trial test
+Open MATLAB, set the current folder to:
+- **`GVS/codes/`**
 
-This script is intended for **testing and visualization on a single trial**.
+Then run:
+- **`com_cmp_single.m`**
 
-### 2) Full dataset analysis (recommended)
-From the same `codes/` folder, run:
-- `com_cmp_all.m`
+This script is intended for **single-trial inspection and visualization** in the gold-standard validation study.
 
-By default, `com_cmp_all.m` **does not re-generate** the processed dataset. It loads the cached file:
-- `codes/com_cmp_all.mat`
+### 2) GVS: full analysis
+From the same folder:
+- **`GVS/codes/`**
 
-#### Re-generate processed data (optional)
-In `codes/com_cmp_all.m`, near the top you will find:
-- `if false`
+Run:
+- **`com_cmp_all.m`**
 
-Keep it as **`false`** to reuse `com_cmp_all.mat` (fast).
+This script performs the **full GVS analysis** and generates the main aggregated results for the validation experiment.
 
-Set it to **`true`** to re-process from the raw dataset and re-create `com_cmp_all.mat` (slow, but fully reproducible from raw data).
+### 3) CCS: group comparison analysis
+Open MATLAB, set the current folder to:
+- **`CCS/`**
+
+Then run:
+- **`CompareControlPatient_VDI_XcoM.m`**
+
+This script performs the **clinical comparison study** analysis between the control and patient groups.
 
 ---
 
 ## Outputs
-During execution, figures and intermediate outputs may be saved under:
-- `outputs/` (created automatically if missing)
+After running the scripts, outputs are written to the experiment-specific folders:
 
+- **GVS outputs**: `GVS/outputs/experiment_a/` (created when needed by the full analysis script)
+- **CCS outputs**: `CCS/outputs/experiment_b_lite/`
+- **CCS figures**: `CCS/outputs/experiment_b_lite/figures/`
+- **CCS tables**: `CCS/outputs/experiment_b_lite/tables/`
+
+Additional intermediate figures may also be created under other `outputs/` subfolders inside each experiment directory.
