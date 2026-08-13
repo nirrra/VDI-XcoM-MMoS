@@ -119,8 +119,8 @@ sts_methods = [1,2,3,1,2,3,1,2,3,...
     1,3,3,3,1,3,3,3,1,3,3,3,1,1,...22
     ];
 
-% 同一个被试
-samePatient = {[18,19],[17,22]};
+% 每个受试者编号均代表不同个体，不进行跨编号合并。正式分析队列由
+% CCS根目录下的ccs_cohort.json统一定义。
 
 %% 量表
 FCA_physical = [0 0 36 47 46 65 53 53 63 68 61 45 57 50 31 21 45 44 62 74 56 52];
@@ -134,7 +134,7 @@ FM_lower =  [0 0 26 32 28 34 23 24 34 18 31 27 20 33 21 29 18 24 26 30 10 18];
 
 idx_data_absorb = [24, 36, 45, 63]; % 数据质量删除：7-12臀底缺行，但可以确定范围；24无足底压力；36臀底时间短；45 无臀底压力；64 无法站起
 idx_empty = find(cellfun(@isempty, times_stss)); % 手动划段为空
-idx_patient_absorb = [1:6,25:26,63:64]; % 因患者因素舍去：1,2：非正式试验；9，下肢无力，难以站起；22，无法站起
+idx_patient_absorb = [63:64]; % 22号未进入最终分析；1、2号量表缺失不影响本研究的力学分析
 
 idx_data_absorb = union(idx_data_absorb, idx_empty);
 idx_analyze_absorb = union(idx_data_absorb, idx_patient_absorb);

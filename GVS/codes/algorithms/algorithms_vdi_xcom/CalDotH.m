@@ -62,9 +62,11 @@ function [dot_hx, dot_hy, dot_hz] = CalDotH(analysisGround)
     num_segments = length(masses);
     
     % 获取时间帧数
-    % table 使用 height
+    % Use size(...,1) instead of height(...).  Some GVS workspaces keep a
+    % subject-height variable named `height`, and external toolboxes can
+    % also shadow MATLAB's table height method.
     if ismember('pos_center_of_mass_X', analysisGround.Properties.VariableNames)
-        num_frames = height(analysisGround);
+        num_frames = size(analysisGround, 1);
     else
         error('analysisGround 中缺少 pos_center_of_mass_X 数据');
     end

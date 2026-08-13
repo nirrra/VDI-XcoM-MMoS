@@ -30,6 +30,16 @@ if isfield(kinectstream,'CLAVICLE_LEFT')
         kinect_cell_arrays{i}.joints(22,:) = [kinectstream.SPINE_NAVAL.x(i),kinectstream.SPINE_NAVAL.y(i),kinectstream.SPINE_NAVAL.z(i)];
         kinect_cell_arrays{i}.joints(23,:) = [kinectstream.SPINE_CHEST.x(i),kinectstream.SPINE_CHEST.y(i),kinectstream.SPINE_CHEST.z(i)];
         kinect_cell_arrays{i}.joints(24,:) = [kinectstream.NOSE.x(i),kinectstream.NOSE.y(i),kinectstream.NOSE.z(i)];
+        % Preserve the complete Azure Kinect 32-joint skeleton through the
+        % generic array-based synchronization pipeline.
+        kinect_cell_arrays{i}.joints(25,:) = [kinectstream.HANDTIP_LEFT.x(i),kinectstream.HANDTIP_LEFT.y(i),kinectstream.HANDTIP_LEFT.z(i)];
+        kinect_cell_arrays{i}.joints(26,:) = [kinectstream.THUMB_LEFT.x(i),kinectstream.THUMB_LEFT.y(i),kinectstream.THUMB_LEFT.z(i)];
+        kinect_cell_arrays{i}.joints(27,:) = [kinectstream.HANDTIP_RIGHT.x(i),kinectstream.HANDTIP_RIGHT.y(i),kinectstream.HANDTIP_RIGHT.z(i)];
+        kinect_cell_arrays{i}.joints(28,:) = [kinectstream.THUMB_RIGHT.x(i),kinectstream.THUMB_RIGHT.y(i),kinectstream.THUMB_RIGHT.z(i)];
+        kinect_cell_arrays{i}.joints(29,:) = [kinectstream.EYE_LEFT.x(i),kinectstream.EYE_LEFT.y(i),kinectstream.EYE_LEFT.z(i)];
+        kinect_cell_arrays{i}.joints(30,:) = [kinectstream.EAR_LEFT.x(i),kinectstream.EAR_LEFT.y(i),kinectstream.EAR_LEFT.z(i)];
+        kinect_cell_arrays{i}.joints(31,:) = [kinectstream.EYE_RIGHT.x(i),kinectstream.EYE_RIGHT.y(i),kinectstream.EYE_RIGHT.z(i)];
+        kinect_cell_arrays{i}.joints(32,:) = [kinectstream.EAR_RIGHT.x(i),kinectstream.EAR_RIGHT.y(i),kinectstream.EAR_RIGHT.z(i)];
     end
 else
     for i=1:L

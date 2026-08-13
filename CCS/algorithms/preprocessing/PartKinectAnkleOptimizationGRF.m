@@ -282,7 +282,7 @@ function imgSum = sum_pressure_img(P)
     end
 end
 
-%% ===== 从 ViconTest 移植的足底模板/分区函数（去除绘图副作用）=====
+%% ===== 足底模板/分区函数（去除绘图副作用）=====
 function [imgLeft, imgRight] = GetImgsLR(imgPlantarSum)
     pts = createPts(imgPlantarSum, ceil(max(imgPlantarSum(:))/100));
     labels = dbscanLabels(pts);

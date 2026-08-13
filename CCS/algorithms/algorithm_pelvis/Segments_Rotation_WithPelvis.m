@@ -223,7 +223,7 @@ local_vec = [[1,0,0]',[0,1,0]'];
 for i = 1:length(kinectstream.wtime)
     a_y = [kinectstream.FOOT_LEFT.x(i);kinectstream.FOOT_LEFT.y(i);kinectstream.FOOT_LEFT.z(i)]-...
         [kinectstream.ANKLE_LEFT.x(i);kinectstream.ANKLE_LEFT.y(i);kinectstream.ANKLE_LEFT.z(i)];
-    a_x = closest_orthogonal(a_z,[1,0,0]');
+    a_x = closest_orthogonal(a_y,[1,0,0]');
     global_vec = zeros(3,2);
     global_vec(:,1) = a_x;
     global_vec(:,2) = a_y;
@@ -239,7 +239,7 @@ local_vec = [[1,0,0]',[0,1,0]'];
 for i = 1:length(kinectstream.wtime)
     a_y = [kinectstream.FOOT_RIGHT.x(i);kinectstream.FOOT_RIGHT.y(i);kinectstream.FOOT_RIGHT.z(i)]-...
         [kinectstream.ANKLE_RIGHT.x(i);kinectstream.ANKLE_RIGHT.y(i);kinectstream.ANKLE_RIGHT.z(i)];
-    a_x = closest_orthogonal(a_z,[1,0,0]');
+    a_x = closest_orthogonal(a_y,[1,0,0]');
     global_vec = zeros(3,2);
     global_vec(:,1) = a_x;
     global_vec(:,2) = a_y;

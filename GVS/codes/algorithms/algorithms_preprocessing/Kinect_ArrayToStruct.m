@@ -40,6 +40,16 @@ function kinectstream = Kinect_ArrayToStruct(kinect_cell_arrays)
             [kinectstream.SPINE_NAVAL.x(i,1),kinectstream.SPINE_NAVAL.y(i,1),kinectstream.SPINE_NAVAL.z(i,1)] = One2Three(kinect_cell_arrays{i}.joints(22,:));
             [kinectstream.SPINE_CHEST.x(i,1),kinectstream.SPINE_CHEST.y(i,1),kinectstream.SPINE_CHEST.z(i,1)] = One2Three(kinect_cell_arrays{i}.joints(23,:));
             [kinectstream.NOSE.x(i,1),kinectstream.NOSE.y(i,1),kinectstream.NOSE.z(i,1)] = One2Three(kinect_cell_arrays{i}.joints(24,:));
+            if size(kinect_cell_arrays{i}.joints, 1) >= 32
+                [kinectstream.HANDTIP_LEFT.x(i,1),kinectstream.HANDTIP_LEFT.y(i,1),kinectstream.HANDTIP_LEFT.z(i,1)] = One2Three(kinect_cell_arrays{i}.joints(25,:));
+                [kinectstream.THUMB_LEFT.x(i,1),kinectstream.THUMB_LEFT.y(i,1),kinectstream.THUMB_LEFT.z(i,1)] = One2Three(kinect_cell_arrays{i}.joints(26,:));
+                [kinectstream.HANDTIP_RIGHT.x(i,1),kinectstream.HANDTIP_RIGHT.y(i,1),kinectstream.HANDTIP_RIGHT.z(i,1)] = One2Three(kinect_cell_arrays{i}.joints(27,:));
+                [kinectstream.THUMB_RIGHT.x(i,1),kinectstream.THUMB_RIGHT.y(i,1),kinectstream.THUMB_RIGHT.z(i,1)] = One2Three(kinect_cell_arrays{i}.joints(28,:));
+                [kinectstream.EYE_LEFT.x(i,1),kinectstream.EYE_LEFT.y(i,1),kinectstream.EYE_LEFT.z(i,1)] = One2Three(kinect_cell_arrays{i}.joints(29,:));
+                [kinectstream.EAR_LEFT.x(i,1),kinectstream.EAR_LEFT.y(i,1),kinectstream.EAR_LEFT.z(i,1)] = One2Three(kinect_cell_arrays{i}.joints(30,:));
+                [kinectstream.EYE_RIGHT.x(i,1),kinectstream.EYE_RIGHT.y(i,1),kinectstream.EYE_RIGHT.z(i,1)] = One2Three(kinect_cell_arrays{i}.joints(31,:));
+                [kinectstream.EAR_RIGHT.x(i,1),kinectstream.EAR_RIGHT.y(i,1),kinectstream.EAR_RIGHT.z(i,1)] = One2Three(kinect_cell_arrays{i}.joints(32,:));
+            end
         end
         
     end

@@ -1,5 +1,4 @@
-# Default ignored files
-
+# Local data and generated outputs (not for version control)
 *.csv
 *.avi
 *.mot
@@ -8,3 +7,15 @@
 *.png
 *.eps
 *.mp4
+*.npz
+*.pdf
+
+analysis/data/**
+!analysis/data/README.md
+analysis/results/
+analysis/private/
+
+# Python runtime files
+__pycache__/
+*.py[cod]
+.pytest_cache/

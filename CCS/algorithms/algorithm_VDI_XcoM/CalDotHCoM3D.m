@@ -1,4 +1,4 @@
-function [dot_hx, dot_hy, dot_hz] = CalDotHCoM3D(mass, sex, kinectstream, segments_com_position, r_all_segments, segments_W_L, segments_Alfa_L, segments_com_velocity, segments_com_acceleration, freq)
+function [dot_hx, dot_hy, dot_hz, details] = CalDotHCoM3D(mass, sex, kinectstream, segments_com_position, r_all_segments, segments_W_L, segments_Alfa_L, segments_com_velocity, segments_com_acceleration, freq)
 % CalDotHCoM3D 计算绕全身CoM的角动量率三维分量（基于Kinect结果）
 %
 % 输入参数（前7个参数对齐 Segments_Moment_WithPelvis）：
@@ -101,6 +101,9 @@ segment_map = {
 
 num_frames = numel(segments_com_position.human.x);
 dot_h = zeros(num_frames, 3);
+dot_h_orbital_total = zeros(num_frames, 3);
+dot_h_spin_total = zeros(num_frames, 3);
+per_segment = struct();
 pos_human = xyz2mat(segments_com_position.human);
 acc_human = xyz2mat(segments_com_acceleration.human);
 
@@ -130,11 +133,28 @@ for idx_seg = 1:size(segment_map, 1)
     end
 
     dot_h = dot_h + dot_h_orb + dot_h_spin;
+    dot_h_orbital_total = dot_h_orbital_total + dot_h_orb;
+    dot_h_spin_total = dot_h_spin_total + dot_h_spin;
+    per_segment.(seg_name) = struct( ...
+        'mass_kg', seg_mass, ...
+        'position_common', pos_seg, ...
+        'acceleration_common', acc_seg, ...
+        'orbital_raw_common', dot_h_orb, ...
+        'spin_raw_common', dot_h_spin);
 end
 
 dot_hx = dot_h(:, 1);
 dot_hy = dot_h(:, 2);
 dot_hz = dot_h(:, 3);
+details = struct( ...
+    'algorithm', 'direct r-cross-a plus spin about Kinect CoM', ...
+    'fs', freq, 'body_mass_kg', mass, ...
+    'com_position_common', pos_human, ...
+    'com_acceleration_common', acc_human, ...
+    'orbital_raw_common', dot_h_orbital_total, ...
+    'spin_raw_common', dot_h_spin_total, ...
+    'total_raw_common', dot_h, ...
+    'per_segment', per_segment);
 end
 
 function mat_xyz = xyz2mat(s)

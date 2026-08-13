@@ -34,6 +34,15 @@ function [cellData] = ReadAndSortDataKinect2()
         cellTest.ik = ReadDataTable([filename2,'ik.mat']);
         cellTest.id = ReadDataTable([filename2,'id2.mat']);
         cellTest.analysis = AnalysisMat2Struct(filename2);
+
+        % Predicted tangential GRF used by the Kinect route.  The files are
+        % copied into the GVS dataset so this analysis does not depend on an
+        % external absolute path.  Missing files are kept explicit and are
+        % handled by the agreement-analysis QC table.
+        predictionFile = fullfile(folderPath, 'PredictedGRFMat', ...
+            [filename(1:7), 'grfP.mat']);
+        cellTest.predictionFile = predictionFile;
+        cellTest.grfP = GRFPMat2Struct(predictionFile);
         
         cellData{i} = cellTest;
     end
@@ -48,7 +57,8 @@ end
 % GRFP的mat转化为struct
 function [dataTable] = GRFPMat2Struct(filename)
     if exist(filename,'file') == 2
-        load (filename,'dataTable');
+        loaded = load(filename,'dataTable');
+        dataTable = loaded.dataTable;
     else
         dataTable = [];
     end
